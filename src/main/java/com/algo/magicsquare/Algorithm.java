@@ -5,10 +5,19 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Algorithm {
+    /**
+     * You will be given a 3x3 matrix 9 of integers in the inclusive range [1, 9].
+     * We can convert any digit a to any other digit b in the range [1, 9] at cost of |a - b|.
+     * Given matrix "matrix", convert it into a magic square at minimal cost. Print this cost on a new line.
+     * Complete the formingMagicSquare function in the editor below. It should return an integer that
+     * represents the minimal total cost of converting the input square to a magic square.
+     * formingMagicSquare has the following parameter(s):
+     * matrix: 3x3 matrix of integers
+     */
     static List<int[][]> allMagicSquares = generateAllMagicSquares(3);
 
-    static int formingMagicSquare(int[][] numbers) {
-        return allMagicSquares.stream().mapToInt(square -> transitionCost(square, numbers)).min().orElseThrow(IllegalAccessError::new);
+    static int formingMagicSquare(int[][] matrix) {
+        return allMagicSquares.stream().mapToInt(square -> transitionCost(square, matrix)).min().orElseThrow(IllegalAccessError::new);
     }
 
     static int transitionCost(int[][] firstMatrix, int[][] secondMatrix) {
