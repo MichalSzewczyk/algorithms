@@ -3,6 +3,12 @@ package com.algo.biggerisgreater;
 import java.util.*;
 
 public class Algorithm {
+    /**
+     Given a word, create a new word by swapping some or all of its characters. This new word must meet two criteria:
+        - It must be greater than the original word
+        - It must be the smallest word that meets the first condition
+     For example, given the word w=abcd, the next largest word is abdc
+     */
     static String biggerIsGreater(String w) {
         char[] word = w.toCharArray();
         TreeSet<Character> characters = new TreeSet<>();
