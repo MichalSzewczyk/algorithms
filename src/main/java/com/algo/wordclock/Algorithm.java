@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Algorithm {
     /**
-     *
+     * Given the time in numerals we may convert it into words
      */
     static Map<Integer, String> stringRepresentationOfNumber = new HashMap<>();
     static {
