@@ -1,7 +1,20 @@
 package com.algo.patternmatching;
 
 public class Algorithm {
-
+    /**
+     * Given a 2D array of digits or grid, try to find the occurrence of a given 2D pattern of digits.
+     * For example, consider the following grid:
+     * 1234567890
+     * 0987654321
+     * 1111111111
+     * 1111111111
+     * 2222222222
+     *
+     * Assume we need to look for the following 2D pattern array:
+     * 876543
+     * 111111
+     * 111111
+     */
     static String gridSearch(char[][] grid, int gridRows, int gridCols,
                              char[][] pattern, int patternRows, int patternCols) {
         for (int colIndex = 0; colIndex <= gridCols - patternCols; colIndex++) {
