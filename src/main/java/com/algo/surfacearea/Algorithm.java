@@ -1,6 +1,15 @@
 package com.algo.surfacearea;
 
 public class Algorithm {
+    /**
+     * Madison, is a little girl who is fond of toys. Her friend Mason works in a toy manufacturing factory.
+     * Mason has a 2D board A of size H x W with X rows and W columns. The board is divided into cells of size 1 x 1
+     * with each cell indicated by it's coordinate (i, j). The cell (i, j) has an integer A[i, j] written on it.
+     * To create the toy Mason stacks A[i, j] number of cubes of size 1 x 1 x 1 on the cell (i, j).
+     * <p>
+     * Given the description of the board showing the values of A[i, j] and that the price of the toy is
+     * equal to the 3d surface area find the price of the toy.
+     */
 
     static int surfaceArea(int[][] array, int rows, int cols) {
         int sumOfExternalSurface = sumExternalSurface(array, rows, cols);
