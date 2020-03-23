@@ -18,7 +18,7 @@ public class Algorithm {
             for (int x = 0; x < xSize; x++) {
                 int currentPlusSize = Math.min(leftTopPart[y][x], rightBottomPart[y][x]);
                 if (currentPlusSize > 0) {
-                    for(int i = 1; i <= currentPlusSize; i++) {
+                    for (int i = 1; i <= currentPlusSize; i++) {
                         pointsWithCoordinates.add(new int[]{i, x, y});
                     }
                 }
@@ -44,26 +44,18 @@ public class Algorithm {
     }
 
     static boolean areOverlapping(int[] first, int[] second) {
-        int xDistance = Math.abs(first[1] - second[1]);
-        int yDistance = Math.abs(first[2] - second[2]);
-        int minimumXDistance;
-        int minimumYDistance;
-        if (first[1] == second[1]) {
-            minimumYDistance = first[0] + second[0] - 2;
-        } else {
-            minimumYDistance = Math.max(first[0], second[0]) - 1;
+        if (first[1] - first[0] + 1 < second[1] &&
+                first[1] + first[0]> second[1] &&
+                Math.abs(first[2] - second[2]) - 1 < second[0] ||
+                first[2] - first[0] + 1 < second[2] &&
+                        first[2] + first[0] > second[2] &&
+                        Math.abs(first[1] - second[1]) < first[0]
+                || first[1] == second[1] && first[0] + second[0] - 1 > Math.abs(first[2] - second[2])
+                || first[2] == second[2] && first[0] + second[0] - 1 > Math.abs(first[1] - second[1])
+        ) {
+            return true;
         }
-
-        if (first[2] == second[2]) {
-            minimumXDistance = first[0] + second[0] - 2;
-        } else {
-            minimumXDistance = Math.max(first[0], second[0]) - 1;
-        }
-
-        if (xDistance > minimumXDistance || yDistance > minimumYDistance) {
-            return false;
-        }
-        return true;
+        return false;
     }
 
     static int computeSurface(int length) {
@@ -73,22 +65,22 @@ public class Algorithm {
     static int[][] getHalfCrossesMatrix(char[][] grid, int xSize, int ySize, boolean isTopDown) {
         int[] maximumCrosses = new int[xSize];
         int[][] leftTopPart = new int[ySize][xSize];
-        if(ySize > 0) {
-            for(int x = 0; x < grid[0].length; x++) {
-                int xIndex = isTopDown ? x: grid[0].length - x - 1;
-                int yIndex = isTopDown ? 0: grid.length - 1;
-                if(isGood(grid[yIndex][xIndex])) {
+        if (ySize > 0) {
+            for (int x = 0; x < grid[0].length; x++) {
+                int xIndex = isTopDown ? x : grid[0].length - x - 1;
+                int yIndex = isTopDown ? 0 : grid.length - 1;
+                if (isGood(grid[yIndex][xIndex])) {
                     maximumCrosses[xIndex]++;
                     leftTopPart[yIndex][xIndex]++;
                 }
             }
         }
-        for(int y = 1; y < grid.length; y++) {
+        for (int y = 1; y < grid.length; y++) {
             int currentLeftMax = 0;
-            int yIndex = isTopDown ? y: grid.length - y - 1;
-            for(int x = 0; x < grid[yIndex].length; x++) {
-                int xIndex = isTopDown ? x: grid[yIndex].length - x - 1;
-                if(isGood(grid[yIndex][xIndex])) {
+            int yIndex = isTopDown ? y : grid.length - y - 1;
+            for (int x = 0; x < grid[yIndex].length; x++) {
+                int xIndex = isTopDown ? x : grid[yIndex].length - x - 1;
+                if (isGood(grid[yIndex][xIndex])) {
                     currentLeftMax++;
                     maximumCrosses[xIndex]++;
                 } else {
