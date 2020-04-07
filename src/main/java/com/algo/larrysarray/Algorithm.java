@@ -8,8 +8,7 @@ public class Algorithm {
     static String larrysArray(int[] array) {
         NavigableSet<Integer> numbersTree = new TreeSet<>();
         int swaps = 0;
-        for (int index = 0; index < array.length; index++) {
-            int currentNumber = array[index];
+        for (int currentNumber : array) {
             swaps += numbersTree.tailSet(currentNumber).size();
             numbersTree.add(currentNumber);
         }
