@@ -6,6 +6,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Algorithm {
+    /**
+     * Two strings are anagrams of each other if the letters of one string can be rearranged to form the other string.
+     * Given a string, find the number of pairs of substrings of the string that are anagrams of each other.
+     * For example s = mam, the list of all anagrammatic pairs is [m, m], [mo, om] at positions [[0, 2], [0, 1], [1, 2]] respectively.
+     * Complete the function sherlockAndAnagrams in the editor below.
+     * It must return an integer that represents the number of anagrammatic pairs of substrings in a.
+     */
     static int sherlockAndAnagrams(String input) {
         Map<String, Counter> counters = new HashMap<>();
         for (int i = 1; i < input.length(); i++) {
