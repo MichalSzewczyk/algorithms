@@ -32,9 +32,9 @@ public class Main {
     private static Collection<Integer> computeGuestsCollection(int[][] excludingPairs) {
         Map<Integer, Set<Integer>> exclusions = new HashMap<>();
         for (int[] pair : excludingPairs) {
-            Set<Integer> excludedFirst = exclusions.computeIfAbsent(pair[0], __ -> new HashSet<>());
+            Collection<Integer> excludedFirst = exclusions.computeIfAbsent(pair[0], __ -> new HashSet<>());
             excludedFirst.add(pair[1]);
-            Set<Integer> excludedSecond = exclusions.computeIfAbsent(pair[1], __ -> new HashSet<>());
+            Collection<Integer> excludedSecond = exclusions.computeIfAbsent(pair[1], __ -> new HashSet<>());
             excludedSecond.add(pair[0]);
         }
         Collection<Integer> sortedGuestsWithNumberOfExcluded = exclusions
