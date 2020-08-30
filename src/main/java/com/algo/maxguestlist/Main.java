@@ -45,7 +45,7 @@ public class Main {
                 .collect(Collectors.toList());
         Collection<Integer> guests = new HashSet<>();
         for (int guest : sortedGuestsWithNumberOfExcluded) {
-            Set<Integer> excludedGuests = exclusions.get(guest);
+            Collection<Integer> excludedGuests = exclusions.get(guest);
             if (isIntersectionEmpty(guests, excludedGuests)) {
                 guests.add(guest);
             }
@@ -53,9 +53,9 @@ public class Main {
         return guests;
     }
 
-    private static <T> boolean isIntersectionEmpty(Collection<T> firstSet, Collection<T> secondSet) {
-        for (T element : secondSet) {
-            if (firstSet.contains(element)) {
+    private static <T> boolean isIntersectionEmpty(Collection<T> firstCollection, Collection<T> secondCollection) {
+        for (T element : secondCollection) {
+            if (firstCollection.contains(element)) {
                 return false;
             }
         }
