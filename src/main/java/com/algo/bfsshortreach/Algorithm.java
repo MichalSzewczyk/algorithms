@@ -3,6 +3,39 @@ package com.algo.bfsshortreach;
 import java.util.*;
 
 public class Algorithm {
+    /**
+     *
+     * Consider an undirected graph where each edge is the same weight. Each of the nodes is labeled consecutively.
+     *
+     * You will be given a number of queries. For each query, you will be given a list of edges describing an undirected graph.
+     * After you create a representation of the graph, you must determine and report the shortest distance to each of
+     * the other nodes from a given starting position using the breadth-first search algorithm (BFS).
+     * Distances are to be reported in node number order, ascending. If a node is unreachable, print  for that node.
+     * Each of the edges weighs 6 units of distance.
+     *
+     * Complete the bfs function in the editor below. It must return an array of integers representing distances
+     * from the start node to each other node in node ascending order. If a node is unreachable, its distance is -1.
+     *
+     * bfs has the following parameter(s):
+     * n: the integer number of nodes
+     * m: the integer number of edges
+     * edges: a 2D array of start and end nodes for edges
+     * s: the node to start traversals from
+     *
+     * Sample Input
+     * 2
+     * 4 2
+     * 1 2
+     * 1 3
+     * 1
+     * 3 1
+     * 2 3
+     * 2
+     *
+     * Sample Output
+     * 6 6 -1
+     * -1 6
+     */
 
     // Complete the bfs function below.
     static int[] bfs(int n, int m, int[][] edges, int s) {
@@ -33,12 +66,12 @@ public class Algorithm {
         int[] distancesWithoutCurrent = new int[n - 1];
         for (int index = 0; index < n; index++) {
             if (index != s) {
-                int indexWihotutCurrent = index < s ? index : index - 1;
+                int indexWithoutCurrent = index < s ? index : index - 1;
                 int distance = distances[index];
                 if (distance == 0) {
                     distance = -1;
                 }
-                distancesWithoutCurrent[indexWihotutCurrent] = distance;
+                distancesWithoutCurrent[indexWithoutCurrent] = distance;
             }
         }
         return distancesWithoutCurrent;
