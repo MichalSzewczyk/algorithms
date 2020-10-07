@@ -1,4 +1,4 @@
-package com.algo.pairs;
+package com.algo.pairs.logaritmic;
 
 import java.util.Arrays;
 import java.util.Scanner;
