@@ -1,10 +1,27 @@
 package com.algo.pairs;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class Algorithm {
+    /**
+     * You will be given an array of integers and a target value. Determine the number of pairs of array elements that
+     * have a difference equal to a target value.
+     * For example, given an array of [1, 2, 3, 4] and a target value of 1, we have three values meeting the condition: 2 - 1 = 1, 3 - 2 = 1, and 4 - 3 = 1.
+     * <p>
+     * Function Description
+     * Complete the pairs function below. It must return an integer representing the number of element pairs having the required difference.
+     * pairs has the following parameter(s):
+     * k: an integer, the target difference
+     * arr: an array of integers
+     * <p>
+     * Sample Input
+     * 5 2
+     * 1 5 3 4 2
+     * <p>
+     * Sample Output
+     * 3
+     */
     static int pairs(int k, int[] arr) {
         Arrays.sort(arr);
         int firstIndex = 0;
