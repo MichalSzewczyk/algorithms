@@ -7,6 +7,26 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 public class Solution {
+    /**
+     * You are given a tree (a simple connected graph with no cycles).
+     * Find the maximum number of edges you can remove from the tree to get a forest such that each connected component of the forest contains an even number of nodes.
+     * As an example, the following tree with 4 nodes can be cut at most 1 time to create an even forest.
+     *
+     * Sample input:
+     * 10 9
+     * 2 1
+     * 3 1
+     * 4 3
+     * 5 2
+     * 6 1
+     * 7 2
+     * 8 6
+     * 9 8
+     * 10 8
+     *
+     * Expected output:
+     * 2
+     */
     static int evenForest(IntList[] edges) {
         int removedEdges = 0;
         List<Integer> nodesToVisit = new LinkedList<>();
