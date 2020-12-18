@@ -10,6 +10,47 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class Main {
+    /**
+     * Link: https://www.hackerrank.com/challenges/cut-the-tree/problem
+     *
+     * Anna loves graph theory! She has a tree where each vertex is numbered from  to , and each contains a data value.
+     * The sum of a tree is the sum of all its nodes' data values. If she cuts an edge in her tree, she forms two smaller trees.
+     * The difference between two trees is the absolute value between their sums.
+     * Given a tree, determine which edge to cut so that the resulting trees have a minimal difference between them, then return that difference.
+     * For example, your tree's nodes have weights of [1, 2, 3, 4, 5, 6]. In this case, node numbers match their weights for convenience. In the diagram below, you have the following edges:
+     * [(1, 2), (1, 3), (2, 6), (3, 4), (3, 5)].
+     *
+     * The values are calculated as follows:
+     *
+     * Edge    Tree 1  Tree 2  Absolute
+     * Cut     Sum      Sum     Difference
+     * 1        8         13         5
+     * 2        9         12         3
+     * 3        6         15         9
+     * 4        4         17        13
+     * 5        5         16        11
+     *
+     *
+     * Input Format
+     * The first line contains an integer n, the number of vertices in the tree.
+     * The second line contains n space-separated integers, where each integer u denotes the value of data[u].
+     * Each of the n - 1 subsequent lines contains two space-separated integers u and v describing edge u < - > v in tree t.
+     * Output Format
+     * A single line containing the minimum difference possible for tree t.
+     *
+     * Sample Input
+     *
+     * 6
+     * 100 200 100 500 100 600
+     * 1 2
+     * 2 3
+     * 2 5
+     * 4 5
+     * 5 6
+     * Sample Output
+     *
+     * 400
+     */
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
