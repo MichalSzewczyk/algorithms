@@ -1,7 +1,9 @@
 package com.algo.cutthetree;
 
-import java.io.*;
-import java.util.Arrays;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -17,60 +19,59 @@ public class Main {
                 .mapToInt(Integer::valueOf)
                 .toArray();
 
-        boolean[][] neighbours = new boolean[n][n];
+        IntList[] neighbours = new IntList[data.length];
+        for (int index = 0; index < neighbours.length; index++) {
+            neighbours[index] = new IntList();
+        }
 
         IntStream.range(0, n - 1).forEach(i -> {
+
             try {
                 int[] edge = Stream.of(bufferedReader.readLine().replaceAll("\\s+$", "").split(" "))
                         .mapToInt(Integer::parseInt)
                         .toArray();
-                neighbours[edge[0] - 1][edge[1] - 1] = true;
-                neighbours[edge[1] - 1][edge[0] - 1] = true;
+                neighbours[edge[0] - 1].add(edge[1] - 1);
+                neighbours[edge[1] - 1].add(edge[0] - 1);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
         });
-
-        int result = cutTheTree(data, neighbours);
+        int sum = 0;
+        for (int index = 0; index < neighbours.length; index++) {
+            sum += data[index];
+        }
+        int result = cutTheTree(data, sum, neighbours);
         System.out.println(result);
         bufferedReader.close();
     }
 
-    public static int cutTheTree(int[] data, boolean[][] adjacencyList) {
+    public static int cutTheTree(int[] data, int sum, IntList[] neighbours) {
         List<Integer> cuttingQueue = new LinkedList<>();
         List<Integer> queue = new LinkedList<>();
         queue.add(0);
         while (!queue.isEmpty()) {
             int currentNode = queue.remove(0);
             cuttingQueue.add(0, currentNode);
-            for (int index = 0; index < adjacencyList.length; index++) {
-                if (adjacencyList[currentNode][index]) {
-                    adjacencyList[index][currentNode] = false;
-                    queue.add(index);
-                }
+            for (int current : neighbours[currentNode]) {
+                neighbours[current].remove((Integer) currentNode);
+                queue.add(current);
             }
         }
-        int[] costs = new int[adjacencyList.length];
         while (!cuttingQueue.isEmpty()) {
             int current = cuttingQueue.remove(0);
-            for (int index = 0; index < adjacencyList.length; index++) {
-                if (adjacencyList[current][index]) {
-                    costs[current] += costs[index] + data[index];
-                }
+            for (int neighbour : neighbours[current]) {
+                data[current] += data[neighbour];
             }
         }
-        int sum = 0;
-        for (int index = 0; index < adjacencyList.length; index++) {
-            sum += data[index];
-        }
         int minDiff = Integer.MAX_VALUE;
-        System.out.println(sum);
-        for (int index = 0; index < adjacencyList.length; index++) {
-            costs[index] += data[index];
-            int currentDiff = Math.abs(sum - 2 * costs[index]);
+        for (int index = 0; index < neighbours.length; index++) {
+            int currentDiff = Math.abs(sum - 2 * data[index]);
             minDiff = Math.min(currentDiff, minDiff);
         }
-        System.out.println(Arrays.toString(costs));
         return minDiff;
     }
+
+    private static class IntList extends ArrayList<Integer> {
+    }
 }
+
