@@ -7,23 +7,29 @@ public class Main {
         System.out.println(maxProfitEnhanced);
     }
 
-    private static int getMaxProfitEnhanced(int[] prices) {
-        int min = prices[0];
-        int max = prices[0];
+    /**
+     * Buy/sell twice
+     */
+    private static int getMaxProfitTwice(int[] prices) {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Buy/sell without limit
+     */
+    private static int getMaxProfitLimitless(int[] prices) {
         int profit = 0;
         for (int index = 1; index < prices.length; index++) {
-            if (prices[index] < max) {
-                profit += max - min;
-                min = prices[index];
-                max = min;
-            } else if (prices[index] > max) {
-                max = prices[index];
+            if (prices[index] > prices[index - 1]) {
+                profit += prices[index] - prices[index - 1];
             }
         }
-        profit += max - min;
         return profit;
     }
 
+    /**
+     * Buy once, sell once
+     */
     private static int getMaxProfit(int[] prices) {
         int max = prices[0];
         int min = prices[0];
