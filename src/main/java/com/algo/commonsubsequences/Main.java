@@ -4,6 +4,24 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
+    /**
+     * A subsequence is a sequence that can be derived from another sequence by deleting some elements without changing the order of the remaining elements.
+     * Longest common subsequence (LCS) of 2 sequences is a subsequence, with maximal length, which is common to both the sequences.
+     * <p>
+     * Given two sequences of integers, A = [a[0], a[1], ..., a[n]] and B = [b[0], b[1], ..., b[m]],
+     * find the longest common subsequence and print it as a line of space-separated integers.
+     * If there are multiple common subsequences with the same maximum length, print any one of them.
+     * <p>
+     * In case multiple solutions exist, print any of them. It is guaranteed that at least one non-empty common subsequence will exist.
+     * <p>
+     * Sample input:
+     * 5 6
+     * 1 2 3 4 1
+     * 3 4 1 2 1 3
+     * <p>
+     * Expected output:
+     * 3 4 1
+     */
     private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
