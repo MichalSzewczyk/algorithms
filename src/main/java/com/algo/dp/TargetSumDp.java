@@ -2,7 +2,13 @@ package com.algo.dp;
 
 import java.util.HashSet;
 
-public class SumDp {
+public class TargetSumDp {
+    /**
+     * Given input:
+     * target_sum   - int value
+     * values       - array of int values
+     * Implement sum algorithm to check if target_sum can be represented as sum of values (values can be repeated)
+     */
     public static void main(String[] args) {
         boolean result = sum(7, new int[]{5, 3, 4, 7}, new HashSet<>());
         System.out.println(result);
