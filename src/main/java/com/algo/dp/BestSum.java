@@ -8,9 +8,9 @@ import java.util.*;
  * int[] values  - array of integers to form target sum
  * bestSum returns the smallest permutation with repetitions of integers from values array which sums to target sum.
  *
- * Complexity (n is equal to sum, m is equal to length of values array)
- * Time:    O(n * m)
- * Space:   O(n * m)
+ * Complexity (m is equal to sum, n is equal to length of values array)
+ * Time:    O(m * n)
+ * Space:   O(m)
  */
 public class BestSum {
     public static void main(String[] args) {
