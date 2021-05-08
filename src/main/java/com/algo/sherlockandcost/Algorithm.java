@@ -1,6 +1,9 @@
 package com.algo.sherlockandcost;
 
 public class Algorithm {
+    /**
+     * Link to description: https://www.hackerrank.com/challenges/sherlock-and-cost/problem
+     */
     public static void main(String[] args) {
         int sum = countMaxSum(new int[]{1, 2, 3});
         System.out.println(sum);
