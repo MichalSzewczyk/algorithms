@@ -16,6 +16,16 @@ class CoinChange {
      * The function accepts following parameters:
      *  1. INTEGER n
      *  2. LONG_INTEGER_ARRAY c
+     *
+     * Given an amount and the denominations of coins available, determine how many ways change
+     * can be made for amount. There is a limitless supply of each coin type.
+     *
+     * Sample input:
+     * 10 4
+     * 2 5 3 6
+     *
+     * Expected output:
+     * 5
      */
 
     public static long getWays(int n, long[] values) {
