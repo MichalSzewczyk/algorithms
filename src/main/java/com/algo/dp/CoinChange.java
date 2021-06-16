@@ -1,7 +1,6 @@
 package com.algo.dp;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Arrays;
@@ -30,20 +29,32 @@ class CoinChange {
 
     public static long getWays(int n, long[] values) {
         Arrays.sort(values);
-        return getWaysRecursive(0, 0, n, values);
-    }
-
-    public static long getWaysRecursive(int idx, long sum, long targetSum, long[] values) {
-        long result = 0;
-        for (int currentIdx = idx; currentIdx < values.length; currentIdx++) {
-            long currentSum = sum + values[currentIdx];
-            if (currentSum == targetSum) {
-                result++;
-            } else if (currentSum < targetSum) {
-                result += getWaysRecursive(currentIdx, currentSum, targetSum, values);
+        long[][] results = new long[n + 1][values.length];
+        for (int nIdx = 0; nIdx < n + 1; nIdx++) {
+            for (int valuesIdx = 0; valuesIdx < values.length; valuesIdx++) {
+                results[nIdx][valuesIdx] = -1;
             }
         }
-        return result;
+        getWaysRecursive(0, n, values, results);
+        return results[n][0];
+    }
+
+    public static long getWaysRecursive(int idx, int n, long[] values, long[][] results) {
+        if (results[n][idx] != -1) {
+            return results[n][idx];
+        } else {
+            long result = 0;
+            for (int currentIdx = idx; currentIdx < values.length; currentIdx++) {
+                int currentN = n - (int) values[currentIdx];
+                if (currentN == 0) {
+                    result++;
+                } else if (currentN > 0) {
+                    result += getWaysRecursive(currentIdx, currentN, values, results);
+                }
+            }
+            results[n][idx] = result;
+            return result;
+        }
     }
 
     public static void main(String[] args) throws IOException {
