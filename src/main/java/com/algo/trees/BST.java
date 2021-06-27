@@ -1,11 +1,11 @@
-package com.algo.bst;
+package com.algo.trees;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class Algorithm {
+public class BST {
     public static void main(String[] args) {
-        BSTTree<String> tree = new BSTTree<>();
+        BSTree<String> tree = new BSTree<>();
 
         tree.addElement("a");
         tree.addElement("c");
@@ -16,7 +16,7 @@ public class Algorithm {
         System.out.println(tree.contains("a"));
     }
 
-    private static class BSTTree<T extends Comparable<T>> {
+    private static class BSTree<T extends Comparable<T>> {
         private Node root;
 
         void addElement(T value) {
