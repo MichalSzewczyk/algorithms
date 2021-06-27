@@ -13,6 +13,7 @@ public class Algorithm {
         tree.addElement("b");
 
         System.out.println(tree.getValues());
+        System.out.println(tree.contains("a"));
     }
 
     private static class BSTTree<T extends Comparable<T>> {
@@ -47,6 +48,20 @@ public class Algorithm {
             return values;
         }
 
+        boolean contains(T value) {
+            Node currentNode = root;
+            while (currentNode != null) {
+                if (currentNode.getValue().equals(value)) {
+                    return true;
+                } else if (currentNode.getValue().compareTo(value) < 0) {
+                    currentNode = currentNode.getRightChild();
+                } else {
+                    currentNode = currentNode.getLeftChild();
+                }
+            }
+            return false;
+        }
+
         private void getValuesRecursive(Node currentNode, List<T> values) {
             if (currentNode != null) {
                 getValuesRecursive(currentNode.getLeftChild(), values);
@@ -59,6 +74,10 @@ public class Algorithm {
             private final T value;
             private Node leftChild;
             private Node rightChild;
+
+            public Node(T value) {
+                this.value = value;
+            }
 
             public Node getLeftChild() {
                 return leftChild;
@@ -74,10 +93,6 @@ public class Algorithm {
 
             public void setRightChild(Node rightChild) {
                 this.rightChild = rightChild;
-            }
-
-            public Node(T value) {
-                this.value = value;
             }
 
             public T getValue() {
