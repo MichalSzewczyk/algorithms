@@ -1,4 +1,4 @@
-package com.algo.commonsubstring;
+package com.algo.lcs;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,6 +7,22 @@ import java.util.stream.IntStream;
 
 
 public class Main {
+    /**
+     * Hacker rank link:
+     * https://www.hackerrank.com/challenges/substring-diff/problem
+     * <p>
+     * Problem description:
+     * Complete the substringDiff function in the editor below.
+     * It should return an integer that represents the length of the longest
+     * common substring as defined.
+     * substringDiff has the following parameter(s):
+     * - k: an integer that represents the maximum number of differing characters in a matching pair
+     * - s1: the first string
+     * - s2: the second string
+     *
+     * For each test case, output a single integer which is the length
+     * of the maximum length common substrings differing at k or fewer positions.
+     */
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
 
