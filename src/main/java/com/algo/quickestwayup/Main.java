@@ -11,6 +11,18 @@ import java.util.stream.Stream;
 
 public class Main {
 
+    /**
+     * Markov takes out his Snakes and Ladders game, stares at the board and wonders:
+     * "If I can always roll the die to whatever number I want, what would be the
+     * least number of rolls to reach the destination?"
+     * <p>
+     * Rules The game is played with a cubic die of 6 faces numbered 1 to 6.
+     * - Starting from square 1, land on square 100 with the exact roll of the die.
+     * If moving the number rolled would place the player beyond square 100, no move is made.
+     * - If a player lands at the base of a ladder, the player must climb the ladder. Ladders go up only.
+     * - If a player lands at the mouth of a snake,
+     * the player must go down the snake and come out through the tail. Snakes go down only.
+     */
     public static final int BOARD_SIZE = 100;
 
     public static int quickestWayUp(int[] ladders, int[] snakes) {
