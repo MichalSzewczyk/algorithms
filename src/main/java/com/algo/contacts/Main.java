@@ -17,10 +17,27 @@ import static java.util.Objects.isNull;
  * find partial, where partial is a string that denotes a partial name to search the application for. It must count the number of contacts starting with partial and print the count on a new line.
  * Given n sequential add and find operations, perform each operation in order.
  * <p>
+ * <p>
  * Input Format
  * <p>
  * The first line contains a single integer, n, the number of operations to perform.
  * Each line i of the n subsequent lines contains an operation in one of the two forms defined above.
+ * <p>
+ * Output Format
+ * <p>
+ * For each find partial operation, print the number of contact names starting with  on a new line.
+ * <p>
+ * Sample Input
+ * <p>
+ * 4
+ * add hack
+ * add hackerrank
+ * find hac
+ * find hak
+ * Sample Output
+ * <p>
+ * 2
+ * 0
  */
 public class Main {
     public static void main(String[] args) throws IOException {
