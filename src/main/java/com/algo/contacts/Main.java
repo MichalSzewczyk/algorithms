@@ -10,6 +10,18 @@ import java.util.stream.IntStream;
 
 import static java.util.Objects.isNull;
 
+/**
+ * We're going to make our own Contacts application! The application must perform two types of operations:
+ * <p>
+ * add name, where name is a string denoting a contact name. This must store name as a new contact in the application.
+ * find partial, where partial is a string that denotes a partial name to search the application for. It must count the number of contacts starting with partial and print the count on a new line.
+ * Given n sequential add and find operations, perform each operation in order.
+ * <p>
+ * Input Format
+ * <p>
+ * The first line contains a single integer, n, the number of operations to perform.
+ * Each line i of the n subsequent lines contains an operation in one of the two forms defined above.
+ */
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
