@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.IntStream;
 
+import static java.util.Objects.isNull;
+
 public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
@@ -42,7 +44,7 @@ public class Main {
             private final Map<Character, Node> children;
             private int childrenCount;
 
-            public Node(char value) {
+            public Node() {
                 children = new HashMap<>();
             }
 
@@ -51,7 +53,7 @@ public class Main {
             }
 
             Node getChild(char value) {
-                return children.computeIfAbsent(value, Node::new);
+                return children.computeIfAbsent(value, v -> new Node());
             }
 
             int getChildrenCount() {
@@ -68,7 +70,7 @@ public class Main {
         void add(String word) {
             char[] letters = word.toCharArray();
             int idx = 0;
-            Node current = children.computeIfAbsent(letters[idx], Node::new);
+            Node current = children.computeIfAbsent(letters[idx], v -> new Node());
             current.incrementChildrenCount();
             idx++;
             while (idx != letters.length) {
@@ -83,12 +85,12 @@ public class Main {
             int idx = 0;
             Node current = children.get(letters[idx++]);
             while (idx != letters.length) {
-                if (current == null) {
+                if (isNull(current)) {
                     return 0;
                 }
                 current = current.getChild(letters[idx++]);
             }
-            if (current == null) {
+            if (isNull(current)) {
                 return 0;
             }
             return current.getChildrenCount();
