@@ -4,6 +4,20 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Main {
+    /**
+     * Given the list of sentences which are the training set for the algorithm.
+     * For a given word, return the next word that is most probable to occur after it.
+     * <p>
+     * Sample training input:
+     * sample data sample other sample data
+     * <p>
+     * Sample input:
+     * sample
+     * <p>
+     * Sample output:
+     * data
+     */
+
     public static void main(String[] args) {
         WordPredictor predictor = new WordPredictor();
         predictor.train("first sentence goes here");
