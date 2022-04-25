@@ -1,5 +1,8 @@
 package com.algo.bits;
 
+import java.util.Arrays;
+import java.util.stream.Stream;
+
 public class Main {
     public static void main(String[] args) {
         boolean isEven = isEven(7);
@@ -14,6 +17,15 @@ public class Main {
         System.out.println("Bits counted optimized: " + setBitsCount);
         int flipsCount = countFlipsToGetSum(4, 4, 12);
         System.out.println("Flips required: " + flipsCount);
+        int firstNonRepeatedElement = findNonRepeatedElement(new int[]{3, 4, 5, 3, 4});
+        System.out.println("Non repeated value: " + firstNonRepeatedElement);
+
+    }
+
+    private static int findNonRepeatedElement(int[] elements) {
+        return Arrays.stream(elements)
+                .reduce((right, left) -> right ^ left)
+                .orElseThrow(IllegalArgumentException::new);
     }
 
     private static boolean isEven(int number) {
