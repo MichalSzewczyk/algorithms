@@ -21,7 +21,21 @@ public class Main {
         System.out.println("Non repeated value: " + firstNonRepeatedElement);
         int[] nonRepeatedElements = findNonRepeatedElements(new int[]{3, 4, 5, 3, 1, 4});
         System.out.println("Two non repeated elements: " + Arrays.toString(nonRepeatedElements));
+        int firstSetBit = findFirstSetBit(5);
+        System.out.println("First set bit position from the right is: " + firstSetBit);
     }
+
+    private static int findFirstSetBit(int value) {
+        int position = 0;
+        while(true) {
+            if(((value >> position) & 1) == 0) {
+                position++;
+            } else {
+                return position;
+            }
+        }
+    }
+
 
     private static int[] findNonRepeatedElements(int[] elements) {
         int xorResult = Arrays.stream(elements)
