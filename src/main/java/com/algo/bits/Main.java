@@ -19,12 +19,37 @@ public class Main {
         System.out.println("Flips required: " + flipsCount);
         int firstNonRepeatedElement = findNonRepeatedElement(new int[]{3, 4, 5, 3, 4});
         System.out.println("Non repeated value: " + firstNonRepeatedElement);
+        int[] nonRepeatedElements = findNonRepeatedElements(new int[]{3, 4, 5, 3, 1, 4});
+        System.out.println("Two non repeated elements: " + Arrays.toString(nonRepeatedElements));
+    }
 
+    private static int[] findNonRepeatedElements(int[] elements) {
+        int xorResult = Arrays.stream(elements)
+                .reduce(Main::xor)
+                .orElseThrow(IllegalAccessError::new);
+        int firstNonZeroBit = 1;
+        while ((firstNonZeroBit & xorResult) == 0) {
+            firstNonZeroBit *= 2;
+        }
+        int nonZeroBit = firstNonZeroBit;
+        int[] elementsWithNonZeroBit = Arrays.stream(elements).filter(element -> (element & nonZeroBit) != 0).toArray();
+        int[] elementsWithZeroBit = Arrays.stream(elements).filter(element -> (element & nonZeroBit) == 0).toArray();
+        int firstNumber = Arrays.stream(elementsWithNonZeroBit)
+                .reduce(Main::xor)
+                .orElseThrow(IllegalAccessError::new);
+        int secondNumber = Arrays.stream(elementsWithZeroBit)
+                .reduce(Main::xor)
+                .orElseThrow(IllegalAccessError::new);
+        return new int[]{firstNumber, secondNumber};
+    }
+
+    private static int xor(int first, int second) {
+        return first ^ second;
     }
 
     private static int findNonRepeatedElement(int[] elements) {
         return Arrays.stream(elements)
-                .reduce((right, left) -> right ^ left)
+                .reduce(Main::xor)
                 .orElseThrow(IllegalArgumentException::new);
     }
 
