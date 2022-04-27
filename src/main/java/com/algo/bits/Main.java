@@ -1,7 +1,6 @@
 package com.algo.bits;
 
 import java.util.Arrays;
-import java.util.stream.Stream;
 
 public class Main {
     public static void main(String[] args) {
@@ -23,12 +22,23 @@ public class Main {
         System.out.println("Two non repeated elements: " + Arrays.toString(nonRepeatedElements));
         int firstSetBit = findFirstSetBit(5);
         System.out.println("First set bit position from the right is: " + firstSetBit);
+        boolean wordParity = isPair(8);
+        System.out.println("Parity: " + wordParity);
+    }
+
+    private static boolean isPair(int value) {
+        boolean result = true;
+        while (value != 0) {
+            result = result ^ ((value) & 1) == 1;
+            value >>= 1;
+        }
+        return result;
     }
 
     private static int findFirstSetBit(int value) {
         int position = 0;
-        while(true) {
-            if(((value >> position) & 1) == 0) {
+        while (true) {
+            if (((value >> position) & 1) == 0) {
                 position++;
             } else {
                 return position;
