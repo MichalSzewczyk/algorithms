@@ -24,6 +24,8 @@ public class Main {
         System.out.println("First set bit position from the right is: " + firstSetBit);
         boolean wordParity = isPair(8);
         System.out.println("Parity: " + wordParity);
+        boolean optimizedWordParity = isPairOptimized(8);
+        System.out.println("Optimized word parity: " + optimizedWordParity);
     }
 
     private static boolean isPair(int value) {
@@ -31,6 +33,15 @@ public class Main {
         while (value != 0) {
             result = result ^ ((value) & 1) == 1;
             value >>= 1;
+        }
+        return result;
+    }
+
+    private static boolean isPairOptimized(int value) {
+        boolean result = true;
+        while (value != 0) {
+            result = !result;
+            value &= value - 1;
         }
         return result;
     }
