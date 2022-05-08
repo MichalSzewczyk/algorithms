@@ -26,6 +26,16 @@ public class Main {
         System.out.println("Parity: " + wordParity);
         boolean optimizedWordParity = isPairOptimized(8);
         System.out.println("Optimized word parity: " + optimizedWordParity);
+        int swapped = swapBits(4, 1, 2);
+        System.out.println("Swapped bits: " + swapped);
+    }
+
+    private static int swapBits(int number, int first, int second) {
+        if (((number >> first) & 1) != ((number >> second) & 1)) {
+            int bitSwapMask = (1 << first) | (1 << second);
+            number ^= bitSwapMask;
+        }
+        return number;
     }
 
     private static boolean isPair(int value) {
