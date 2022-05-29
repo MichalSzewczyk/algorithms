@@ -28,6 +28,23 @@ public class Main {
         System.out.println("Optimized word parity: " + optimizedWordParity);
         int swapped = swapBits(4, 1, 2);
         System.out.println("Swapped bits: " + swapped);
+        int valueToReverse = 0b101011;
+        int reversed = reverseBits(valueToReverse);
+        System.out.println("Reversed bits: " + Integer.toBinaryString(reversed) + ", before reverse: " + Integer.toBinaryString(valueToReverse));
+    }
+
+    private static int reverseBits(int value) {
+        int firstMask = 1 << ((int) (Math.log(value) / Math.log(2)));
+        int secondMask = 1;
+        while (firstMask > secondMask) {
+            if (((value & firstMask) == firstMask) != ((value & secondMask) == secondMask)) {
+                value ^= firstMask;
+                value ^= secondMask;
+            }
+            firstMask >>= 1;
+            secondMask <<= 1;
+        }
+        return value;
     }
 
     private static int swapBits(int number, int first, int second) {
@@ -66,7 +83,6 @@ public class Main {
             }
         }
     }
-
 
     private static int[] findNonRepeatedElements(int[] elements) {
         int xorResult = Arrays.stream(elements)
