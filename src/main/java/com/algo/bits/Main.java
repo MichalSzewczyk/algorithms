@@ -31,6 +31,9 @@ public class Main {
         int valueToReverse = 0b101011;
         int reversed = reverseBits(valueToReverse);
         System.out.println("Reversed bits: " + Integer.toBinaryString(reversed) + ", before reverse: " + Integer.toBinaryString(valueToReverse));
+        int signedValueToReverse = 0b11111111111111111111111111111011;
+        int signedReversed = reverseBitsSignedInteger(signedValueToReverse);
+        System.out.println("Reversed signed bits: " + Integer.toBinaryString(signedReversed) + ", before reverse: " + Integer.toBinaryString(signedValueToReverse));
     }
 
     private static int reverseBits(int value) {
@@ -45,6 +48,26 @@ public class Main {
             secondMask <<= 1;
         }
         return value;
+    }
+
+    public static int reverseBitsSignedInteger(int n) {
+        int rightMask = 1;
+        int leftMask = 1 << 31;
+        if (((n & rightMask) == 0) != ((n & leftMask) == 0)) {
+            n ^= rightMask;
+            n ^= leftMask;
+        }
+        rightMask <<= 1;
+        leftMask = 1 << 30;
+        while (rightMask < leftMask) {
+            if (((n & rightMask) == 0) != ((n & leftMask) == 0)) {
+                n ^= rightMask;
+                n ^= leftMask;
+            }
+            rightMask <<= 1;
+            leftMask >>= 1;
+        }
+        return n;
     }
 
     private static int swapBits(int number, int first, int second) {
