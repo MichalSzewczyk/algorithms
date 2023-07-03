@@ -13,7 +13,7 @@ public class Selection {
         for (int sortedIdx = 0; sortedIdx < values.length; sortedIdx++) {
             int minIdx = sortedIdx;
             for (int idx = sortedIdx + 1; idx < values.length; idx++) {
-                if(values[idx] < values[minIdx]) {
+                if (values[idx] < values[minIdx]) {
                     minIdx = idx;
                 }
             }
