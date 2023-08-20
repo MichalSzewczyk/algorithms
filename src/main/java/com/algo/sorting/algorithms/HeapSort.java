@@ -10,25 +10,29 @@ public class HeapSort {
     }
 
     private static void sort(int[] numbers) {
-        for (int idx = 1; idx < numbers.length; idx++) {
-            int current = idx;
-            while (current != 0 && numbers[current / 2] < numbers[current]) {
-                int tmp = numbers[current / 2];
-                numbers[current / 2] = numbers[current];
-                numbers[current] = tmp;
-                current /= 2;
-            }
-        }
+        buildHeap(numbers);
         for (int idx = 0; idx < numbers.length; idx++) {
             int sortedIdx = numbers.length - idx - 1;
             int tmp = numbers[sortedIdx];
             numbers[sortedIdx] = numbers[0];
             numbers[0] = tmp;
-            insert(numbers, sortedIdx);
+            positionRootElement(numbers, sortedIdx);
         }
     }
 
-    private static void insert(int[] numbers, int sortedIdx) {
+    private static void buildHeap(int[] numbers) {
+        for (int idx = 1; idx < numbers.length; idx++) {
+            int currentIdx = idx;
+            int parentIdx = currentIdx / 2;
+            while (currentIdx != 0 && numbers[parentIdx] < numbers[currentIdx]) {
+                swapElements(numbers, currentIdx, parentIdx);
+                currentIdx /= 2;
+                parentIdx /= 2;
+            }
+        }
+    }
+
+    private static void positionRootElement(int[] numbers, int sortedIdx) {
         int idx = 0;
         while ((Math.pow(2, idx)) < sortedIdx) {
             int leftChildIdx = (int) Math.pow(2, idx);
@@ -40,13 +44,17 @@ public class HeapSort {
                 maxChildIdx = leftChildIdx;
             }
             if (numbers[idx] < numbers[maxChildIdx]) {
-                int tmp = numbers[idx];
-                numbers[idx] = numbers[maxChildIdx];
-                numbers[maxChildIdx] = tmp;
+                swapElements(numbers, idx, maxChildIdx);
                 idx = maxChildIdx;
             } else {
                 return;
             }
         }
+    }
+
+    private static void swapElements(int[] numbers, int firstIdx, int secondIdx) {
+        int tmp = numbers[firstIdx];
+        numbers[firstIdx] = numbers[secondIdx];
+        numbers[secondIdx] = tmp;
     }
 }
