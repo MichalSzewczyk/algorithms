@@ -1,4 +1,4 @@
-package com.algo.radix;
+package com.algo.sorting.algorithms;
 
 import java.util.Arrays;
 
