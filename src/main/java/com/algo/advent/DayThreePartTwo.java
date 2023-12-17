@@ -3,8 +3,9 @@ package com.algo.advent;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
-public class DayThree {
+public class DayThreePartTwo {
     public static void main(String[] args) {
         String input = ".....664...998........343...............851............................2............414.....................3....................948.164....\n" +
                 "......*..................*617....885...*....................-......250.........536..........470...#..................../4......=.....*......\n" +
@@ -146,9 +147,16 @@ public class DayThree {
                 "......87...318......472...........%449.....=............720.........%.................257...29...........*.........-.....656................\n" +
                 "..666........*....*.....920.....................................................&......*........................759..........875$...........\n" +
                 "......138....366..797...........584.......247.........................427..206..843...618.....530......................................172..";
-        String shortInput = "111\n" +
-                "1*1\n" +
-                "111";
+        String shortInput = "467..114..\n" +
+                "...*......\n" +
+                "..35..633.\n" +
+                "......#...\n" +
+                "617*......\n" +
+                ".....+.58.\n" +
+                "..592.....\n" +
+                "......755.\n" +
+                "...$.*....\n" +
+                ".664.598..";
         String[] lines = input.split("\n");
         char[][] lineChars = new char[lines.length][];
         for (int idx = 0; idx < lineChars.length; idx++) {
@@ -156,48 +164,61 @@ public class DayThree {
         }
         List<int[]> numbers = extractNumbersWithIndexes(lines, lineChars);
         int sum = 0;
+        List<int[]> magicChars = new LinkedList<>();
         for (int[] number : numbers) {
-            if (isMagic(number, lineChars)) {
-                sum += number[2];
+            List<int[]> current = isMagic(number, lineChars);
+            magicChars.addAll(current);
+        }
+        int[][] occurrences = new int[lineChars.length][lineChars[0].length];
+        int[][] multiplied = new int[lineChars.length][lineChars[0].length];
+        for (int[] magic : magicChars) {
+            occurrences[magic[1]][magic[2]]++;
+            if (multiplied[magic[1]][magic[2]] == 0) {
+                multiplied[magic[1]][magic[2]] = magic[0];
+            } else {
+                multiplied[magic[1]][magic[2]] *= magic[0];
+            }
+        }
+        for (int[] magic : magicChars) {
+            if (occurrences[magic[1]][magic[2]] == 2) {
+                sum += multiplied[magic[1]][magic[2]];
+                occurrences[magic[1]][magic[2]] = 0;
             }
         }
         System.out.println(sum);
     }
 
-    private static boolean isMagic(int[] number, char[][] lineChars) {
+    private static List<int[]> isMagic(int[] number, char[][] lineChars) {
         int rowIdx = number[0];
+        List<int[]> results = new LinkedList<>();
         if (rowIdx != 0) {
             int previousRowIdx = number[0] - 1;
-            boolean isMagic = isMagic(number, lineChars[previousRowIdx]);
-            if (isMagic) {
-                return true;
-            }
+            Optional<int[]> result = isMagic(number, lineChars[previousRowIdx], previousRowIdx);
+            result.ifPresent(results::add);
         }
         if (rowIdx != lineChars.length - 1) {
             int nextRowIdx = number[0] + 1;
-            boolean isMagic = isMagic(number, lineChars[nextRowIdx]);
-            if (isMagic) {
-                return true;
-            }
+            Optional<int[]> result = isMagic(number, lineChars[nextRowIdx], nextRowIdx);
+            result.ifPresent(results::add);
         }
         int colIdx = number[1];
         int nextColumn = colIdx + 1;
         if (nextColumn != lineChars[rowIdx].length) {
             if (isMagicCharacter(lineChars[rowIdx][nextColumn])) {
-                return true;
+                results.add(new int[]{number[2], rowIdx, nextColumn});
             }
         }
         int digitsCount = getDigitsCount(number[2]);
         int previousDigit = colIdx - digitsCount;
         if (previousDigit >= 0) {
             if (isMagicCharacter(lineChars[rowIdx][previousDigit])) {
-                return true;
+                results.add(new int[]{number[2], rowIdx, previousDigit});
             }
         }
-        return false;
+        return results;
     }
 
-    private static boolean isMagic(int[] number, char[] lineChar) {
+    private static Optional<int[]> isMagic(int[] number, char[] lineChar, int rowIdx) {
         int lineLength = lineChar.length;
         int lastDigitIndex = number[1];
         int digits = getDigitsCount(number[2]);
@@ -206,10 +227,10 @@ public class DayThree {
         for (int idx = firstIdx; idx <= lastIdx; idx++) {
             char currentChar = lineChar[idx];
             if (isMagicCharacter(currentChar)) {
-                return true;
+                return Optional.of(new int[]{number[2], rowIdx, idx});
             }
         }
-        return false;
+        return Optional.empty();
     }
 
     private static int getDigitsCount(int a) {
@@ -217,7 +238,7 @@ public class DayThree {
     }
 
     private static boolean isMagicCharacter(char currentChar) {
-        return (!Character.isDigit(currentChar)) && currentChar != '.';
+        return currentChar == '*';
     }
 
     private static List<int[]> extractNumbersWithIndexes(String[] lines, char[][] lineChars) {
