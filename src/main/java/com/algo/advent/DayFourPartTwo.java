@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DayFour {
+public class DayFourPartTwo {
     public static void main(String[] args) {
         String input = "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53\n" +
                 "Card 2: 13 32 20 16 61 | 61 30 68 82 17 32 24 19\n" +
@@ -231,33 +231,38 @@ public class DayFour {
                 "Card 217: 39 78 45  4 20 96 26 87 55  1 |  7 91 37 48 83 59 53 27 16 78 49 90 61 81 92 15 17 46 62 73 42  8  9 50 82\n" +
                 "Card 218: 32  2 98 53 69 96 76 79  7 50 |  9 49 16 21 70  6 44 34 47 41 93 58 95 81 66 65  4 62 57 30 90 53 10 89 25\n" +
                 "Card 219: 74 23 73 99 60 87 45 75 70 85 | 32 64 31 27 67 46 29 92 34 76 37 40 35 95 50 86 30 63 42 69 68 83 61 55 62";
-        String inputCleaned = longInput.replaceAll("Card \\d+: ", "").replaceAll("\n", " \n ");
-        String[] split = inputCleaned.split("[ ]+");
+        String cleaned = longInput.replaceAll("Card \\d+: ", "");
+        String[] cards = cleaned.split("\n");
+        int[] cardCounts = new int[cards.length];
+        Arrays.fill(cardCounts, 1);
+        for (int idx = 0; idx < cards.length; idx++) {
+            int luckyCards = getLuckyCards(cards[idx]);
+            for (int nextCards = idx + 1; nextCards <= idx + luckyCards; nextCards++) {
+                cardCounts[nextCards] += cardCounts[idx];
+            }
+        }
+        int totalCards = Arrays.stream(cardCounts).reduce(0, Integer::sum);
+
+        System.out.println(totalCards);
+    }
+
+    private static int getLuckyCards(String card) {
+        String[] values = card.split(" +");
         Set<String> luckyNumbers = new HashSet<>();
-        int sum = 0;
-        int currentPoints = 0;
-        boolean isChecking = false;
-        for(String value: split) {
-            if(value.equals("\n")) {
-                if(currentPoints != 0) {
-                    sum += Math.pow(2, currentPoints - 1);
-                }
-                isChecking = false;
-                currentPoints = 0;
-                luckyNumbers = new HashSet<>();
-            } else if(isChecking) {
+        boolean check = false;
+        int luckyCards = 0;
+        for(String value: values) {
+            if(value.equals("|")) {
+                check = true;
+            } else if(check) {
                 if(luckyNumbers.contains(value)) {
-                    currentPoints++;
+                    luckyCards++;
                 }
-            } else if (value.equals("|")) {
-                isChecking = true;
             } else {
                 luckyNumbers.add(value);
             }
         }
-        if(currentPoints != 0) {
-            sum += Math.pow(2, currentPoints - 1);
-        }
-        System.out.println(sum);
+
+        return luckyCards;
     }
 }
