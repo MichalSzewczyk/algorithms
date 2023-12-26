@@ -1,8 +1,10 @@
 package com.algo.advent;
 
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
-public class DayFive {
+public class DayFivePartTwo {
     public static void main(String[] args) {
         String customInput = "seeds: 7\n" +
                 "\n" +
@@ -29,36 +31,36 @@ public class DayFive {
         String input = "seeds: 79 14 55 13\n" +
                 "\n" +
                 "seed-to-soil map:\n" +
-                "52 50 48\n" +
                 "50 98 2\n" +
+                "52 50 48\n" +
                 "\n" +
                 "soil-to-fertilizer map:\n" +
-                "39 0 15\n" +
-                "37 52 2\n" +
                 "0 15 37\n" +
+                "37 52 2\n" +
+                "39 0 15\n" +
                 "\n" +
                 "fertilizer-to-water map:\n" +
-                "57 7 4\n" +
-                "42 0 7\n" +
-                "0 11 42\n" +
                 "49 53 8\n" +
+                "0 11 42\n" +
+                "42 0 7\n" +
+                "57 7 4\n" +
                 "\n" +
                 "water-to-light map:\n" +
-                "18 25 70\n" +
                 "88 18 7\n" +
+                "18 25 70\n" +
                 "\n" +
                 "light-to-temperature map:\n" +
-                "68 64 13\n" +
-                "81 45 19\n" +
                 "45 77 23\n" +
+                "81 45 19\n" +
+                "68 64 13\n" +
                 "\n" +
                 "temperature-to-humidity map:\n" +
-                "1 0 69\n" +
                 "0 69 1\n" +
+                "1 0 69\n" +
                 "\n" +
                 "humidity-to-location map:\n" +
-                "56 93 4\n" +
-                "60 56 37";
+                "60 56 37\n" +
+                "56 93 4";
 
         String longInput = "seeds: 858905075 56936593 947763189 267019426 206349064 252409474 660226451 92561087 752930744 24162055 75704321 63600948 3866217991 323477533 3356941271 54368890 1755537789 475537300 1327269841 427659734\n" +
                 "\n" +
@@ -345,31 +347,34 @@ public class DayFive {
             mappings[idx] = parsedNumbers;
         }
         long[] seeds = mappings[0];
+
         long lowestPlace = Long.MAX_VALUE;
-        for (long[] line : mappings) {
-            System.out.println(Arrays.toString(line));
-        }
-        for (int idx = 0; idx < seeds.length; idx++) {
-            long currentPosition = seeds[idx];
-            long currentLowest = Long.MAX_VALUE;
-            for (int mappingIdx = 1; mappingIdx < mappings.length; mappingIdx++) {
-                long[] currentMapping = mappings[mappingIdx];
-                if (currentMapping.length == 1) {
-                    if (currentLowest != Long.MAX_VALUE) {
-                        currentPosition = currentLowest;
-                        currentLowest = Long.MAX_VALUE;
+        for (int rangeIdx = 0; rangeIdx < seeds.length; rangeIdx += 2) {
+            long start = seeds[rangeIdx];
+            long range = seeds[rangeIdx + 1];
+            for (long values = start; values < start + range; values++) {
+                long currentPosition = values;
+                long currentLowest = Long.MAX_VALUE;
+                for (int mappingIdx = 1; mappingIdx < mappings.length; mappingIdx++) {
+                    long[] currentMapping = mappings[mappingIdx];
+                    if (currentMapping.length == 1) {
+                        if (currentLowest != Long.MAX_VALUE) {
+                            currentPosition = currentLowest;
+                            currentLowest = Long.MAX_VALUE;
+                        }
+                    } else if (currentPosition >= currentMapping[1] && currentPosition < currentMapping[1] + currentMapping[2]) {
+                        long result = currentMapping[0] - currentMapping[1];
+                        long positionAdjusted = currentPosition + result;
+                        currentLowest = Math.min(currentLowest, positionAdjusted);
                     }
-                } else if (currentPosition >= currentMapping[1] && currentPosition < currentMapping[1] + currentMapping[2]) {
-                    long result = currentMapping[0] - currentMapping[1];
-                    long positionAdjusted = currentPosition + result;
-                    currentLowest = Math.min(currentLowest, positionAdjusted);
                 }
-            }
-            if (currentLowest != Long.MAX_VALUE) {
-                currentPosition = currentLowest;
-            }
-            lowestPlace = Math.min(lowestPlace, currentPosition);
+                if (currentLowest != Long.MAX_VALUE) {
+                    currentPosition = currentLowest;
+                }
+                lowestPlace = Math.min(lowestPlace, currentPosition);
+            }//26273516
         }
-        System.out.println(lowestPlace); //26273516
+        System.out.println(lowestPlace);
+
     }
 }
