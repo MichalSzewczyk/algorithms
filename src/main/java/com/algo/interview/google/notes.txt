@@ -1,0 +1,29 @@
+Interview 1
+1. Given the list of edges of directed graph, count the number of nodes that are connected in both directions (A -> B and B -> A)
+2. Given the list of vectors sorted, return the list of elements that appear in at least k vectors
+Interview 2
+3. Given the graph where each node has at most 3 neighbours. Return the list of nodes that can be taken as the roots to form the binary tree, i.e.
+        1
+       / \
+      2   3
+         / \
+        4   5
+if the 4 is selected as root, then the graph is as below:
+        4
+        |
+        3
+       / \
+      1   5
+      |
+      2
+4. Similarly as in 3. return the list of nodes, that taken as root will form the binary tree.
+In addition to that, each node has color, either white or black.
+Make sure that each node at the graph has children of different color than it is, i.e.
+          4 (black)
+          |
+          3 (white)
+         / \
+(black) 1   5 (black)
+        |
+        2 (white)
+
