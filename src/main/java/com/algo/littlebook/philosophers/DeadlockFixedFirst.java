@@ -1,8 +1,8 @@
 package com.algo.littlebook.philosophers;
 
-public class Deadlock {
+public class DeadlockFixedFirst {
     public static void main(String[] args) {
         Table table = new Table(5);
-        table.dineLeftFirst();
+        table.dine();
     }
 }

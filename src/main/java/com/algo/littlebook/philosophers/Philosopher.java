@@ -11,20 +11,22 @@ public class Philosopher {
         this.rightFork = rightFork;
     }
 
-    void dine() {
+    void dine(boolean leftFirst) {
+        Lock left = leftFirst ? leftFork : rightFork;
+        Lock right = leftFirst ? rightFork : leftFork;
         try {
-            leftFork.lock();
-            System.out.println("Left fork taken.");
+            left.lock();
+            System.out.println("First fork taken.");
             Thread.sleep(1000);
-            rightFork.lock();
-            System.out.println("Right fork taken.");
+            right.lock();
+            System.out.println("Second fork taken.");
             System.out.println("Dining");
             Thread.sleep(1000);
-            leftFork.unlock();
-            System.out.println("Left fork released.");
+            left.unlock();
+            System.out.println("First fork released.");
             Thread.sleep(1000);
-            rightFork.unlock();
-            System.out.println("Right fork released.");
+            right.unlock();
+            System.out.println("Second fork released.");
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
